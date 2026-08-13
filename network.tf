@@ -37,23 +37,6 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_nat_gateway" "nat" {
-  subnet_id     = aws_subnet.public.id
-  allocation_id = aws_eip.eip_nat.id
-
-  tags = {
-    Name = "nat_gateway"
-  }
-}
-
-resource "aws_eip" "eip_nat" {
-  domain = "vpc"
-
-  tags = {
-    Name = "eip_nat"
-  }
-}
-
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main.id
 
@@ -73,21 +56,3 @@ resource "aws_route_table_association" "public_association" {
   route_table_id = aws_route_table.public_rt.id
 }
 
-resource "aws_route_table" "private_rt" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "private_rt"
-  }
-}
-
-resource "aws_route" "internet_exit" {
-  route_table_id         = aws_route_table.private_rt.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat.id
-}
-
-resource "aws_route_table_association" "ec2_exit" {
-  subnet_id      = aws_subnet.private.id
-  route_table_id = aws_route_table.private_rt.id
-}
