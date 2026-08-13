@@ -1,15 +1,5 @@
-terraform {
-  backend "s3" {
-    bucket       = "gonzalo-terraform-state"
-    key          = "lab/terraform.tfstate"
-    region       = "us-east-1"
-    encrypt      = true
-    use_lockfile = true
-  }
-}
-
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "gonzalo-terraform-state"
+  bucket = var.state_bucket_name
 
   lifecycle {
     prevent_destroy = true
