@@ -56,3 +56,11 @@ resource "aws_route_table_association" "public_association" {
   route_table_id = aws_route_table.public_rt.id
 }
 
+resource "aws_route53_record" "game_server" {
+  zone_id = data.aws_route53_zone.main.zone_id
+  name    = "doom.${data.aws_route53_zone.main.name}"
+  type    = "A"
+  ttl     = 300
+  records = [aws_instance.game_server.public_ip]
+}
+
