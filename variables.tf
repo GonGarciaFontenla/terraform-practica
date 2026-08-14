@@ -17,7 +17,7 @@ variable "private_subnet_cdir_block" {
 }
 
 variable "ec2_instance_type" {
-  type = string
+  type        = string
   description = "EC2 instance type"
-  default = "t3.micro"
+  default     = "t3.micro"
 }

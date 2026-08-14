@@ -1,6 +1,6 @@
 output "ecr_repository_url" {
   description = "URL del repositorio ECR"
-  value       = aws_ecr_repository.doom-game.repository_url
+  value       = aws_ecr_repository.pacman-game.repository_url
 }
 
 output "game_url" {
